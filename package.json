@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "mapepire": "node mapepire-server.js",
-    "odbc": "node odbc-server.js"
+    "mapepire": "source ./.env && node mapepire-server.js",
+    "odbc": "source ./.env && node odbc-server.js"
   },
   "dependencies": {
     "@ibm/mapepire-js": "^0.3.0",

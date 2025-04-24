@@ -16,12 +16,12 @@ const app = express();
 app.use(cors())
 const PORT = 5000;
 
+// Establish ODBC connection
+const connection = await odbc.connect(connectionString);
+
 // Endpoint to fetch data from multiple tables
 app.get('/api/tables', async (req, res) => {
   try {
-    // Establish ODBC connection
-    const connection = await odbc.connect(connectionString);
-    
     // Define queries for multiple tables
     const queries = {
       users: 'SELECT * FROM ECOMMERCE.USERS FETCH FIRST 10 ROWS ONLY',
@@ -47,7 +47,7 @@ app.get('/api/tables', async (req, res) => {
     }
 
     // Close the connection after fetching the data
-    await connection.close();
+    // await connection.close();
 
     // Send the fetched data as the response
     res.json(results);

@@ -17,14 +17,15 @@ const creds = {
 const ca = await mapepire.getCertificate(creds);
 creds.ca = ca.raw;
 
+// Establish mapepire connection
+const job = new mapepire.SQLJob();
+
+await job.connect(creds);  
 
 // Endpoint to fetch data from multiple tables
 app.get('/api/tables', async (req, res) => {
   try {
-    // Establish mapepire connection
-    const job = new mapepire.SQLJob();
-
-    await job.connect(creds);    
+  
     // Define queries for multiple tables
     const queries = {
       users: 'SELECT * FROM ECOMMERCE.USERS FETCH FIRST 10 ROWS ONLY',
@@ -49,7 +50,7 @@ app.get('/api/tables', async (req, res) => {
     }
 
     // Close the connection after fetching the data
-    await job.close();
+    // await job.close();
 
     // Send the fetched data as the response
     res.json(results);
